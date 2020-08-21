@@ -232,7 +232,7 @@ function parseQuery(query, substitutions)
     }
 
     // Args is the rest up to the last bracket
-    var closeBracketIndex = query.indexOf(')', openBracketIndex)
+    var closeBracketIndex = query.lastIndexOf(')', openBracketIndex)
     if (closeBracketIndex == -1)
     {
       queryErrors.push("Can't find last bracket")
@@ -244,7 +244,12 @@ function parseQuery(query, substitutions)
       {
         // Wrap args in array syntax so we can check for optional options arg
         args = '[' + args + ']'
-        docs = eval(args)
+        try {
+          docs = eval(args)
+        } catch (e) {
+          console.error("query eval error:", e, ", args: ", args);
+          throw e;
+        }
         // First Arg is pipeline
         doc.pipeline = docs[0]
         // If we have 2 top level args, second is agg options

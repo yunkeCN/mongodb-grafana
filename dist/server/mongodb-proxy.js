@@ -232,7 +232,7 @@ function parseQuery(query, substitutions)
     }
 
     // Args is the rest up to the last bracket
-    var closeBracketIndex = query.lastIndexOf(')', openBracketIndex)
+    var closeBracketIndex = query.lastIndexOf(')')
     if (closeBracketIndex == -1)
     {
       queryErrors.push("Can't find last bracket")
